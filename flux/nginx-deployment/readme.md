@@ -76,14 +76,40 @@ Add nginx repository to Flux :
 flux create source git nginx \
   --url=https://github.com/${GITHUB_USER}/${GITHUB_REPO} \
   --branch=main \
-  --interval=30s
+  --interval=30s \
+  --export > ./clusters/my-cluster/nginx-source.yaml
 ```
 Deploy nginx application :
 ```
   flux create kustomization nginx \
   --target-namespace=default \
   --source=podinfo \
-  --path=<dir-path> \
+  --path=./clusters/my-cluster \
   --prune=true \
   --interval=5m \
+  --export > ./clusters/my-cluster/nginx-kustomization.yaml
 ```  
+
+Commit and push the Kustomization manifest to the repository:
+
+```
+git add -A && git commit -m "Add podinfo Kustomization"
+git push
+```
+
+The structure of the fleet-infra repo should be similar to:
+
+```
+fleet-infra
+└── clusters/
+    └── my-cluster/
+        ├── flux-system/                        
+        │   ├── gotk-components.yaml
+        │   ├── gotk-sync.yaml
+        │   └── kustomization.yaml
+        ├── nginx-kustomization.yaml
+        └── nginx-source.yaml
+        └── deployment.yaml
+        └── service.yaml
+```        
+
