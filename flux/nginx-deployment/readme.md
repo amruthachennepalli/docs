@@ -1,4 +1,4 @@
-# Deploy Nginx application with YAML files in K8s using flux
+# Deploy Nginx application with deployment and service files in K8s using flux
 
 **Pre-requisites :**
 
