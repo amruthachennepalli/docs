@@ -148,6 +148,9 @@ argocd app create monitoring \
 
 argocd app list           # To view all applications
 argocd app get monitoring # To view details about the monitoring Application we just created.
+
+#delete app
+argocd app delete <appname>
 ```     
         
         
