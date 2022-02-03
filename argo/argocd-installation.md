@@ -102,9 +102,13 @@ argocd app sync nginx
 argocd app list
 ```
 
+**Add and deploy application using ApplicationSet**
+
+```bash
+# Install argocd ApplicationSet controller
 kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj-labs/applicationset/v0.2.0/manifests/install.yaml
 
-
+#guestbook app deployment file
 cat > appset.yaml << "EOF"
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
@@ -124,14 +128,27 @@ spec:
       source:
         repoURL: https://github.com/zs-amrutha/fleet-examples.git
         targetRevision: HEAD
-        path: nginx/{{cluster}}
+        path: simple/{{cluster}}
       destination:
         server: '{{url}}'
         namespace: guestbook
 EOF
 
 kubectl apply -f appset.yaml -n argocd
-     
+```
+
+**Add application with helm charts**
+```bash
+argocd app create monitoring \
+  --repo https://kubernetes-charts.storage.googleapis.com \
+  --helm-chart prometheus \
+  --dest-server https://kubernetes.default.svc \
+  --dest-namespace default \
+  --revision 9.7.4
+
+argocd app list           # To view all applications
+argocd app get monitoring # To view details about the monitoring Application we just created.
+```     
         
         
         
