@@ -46,17 +46,17 @@ curl -o /usr/local/bin/sops -L https://github.com/mozilla/sops/releases/download
 
 ### TASK STEPS: 
 ```bash
-# clone the  bit-bucket repo (affiliate-api) with make file
+# clone the  bit-bucket repo (argo) 
 mkdir softonic
 git clone 
-cd softonic/affiliate-api 
+cd softonic/argo
 
 # export Hostpath
-export KIND_HOSTPATH=/home/amrutha/softonic/affiliate-api
+export KIND_HOSTPATH=/home/amrutha/softonic/argo
 
 # Add helm repos
-helm repo add softonic https://admin:TxlEVEssXbvE@chartmuseum.softonic.io/
-helm repo add softonic-public https://admin:LQ2735wD3GjS47Xm@charts.softonic.io
+helm repo add softonic 
+helm repo add softonic-public 
 
 # login to docker registry
 docker login  <registry>
@@ -102,18 +102,18 @@ Also set the proper repository and the other params**
 ```sh
 argo submit --serviceaccount  argo-workflow --from wftmpl/repo-pipeline\
  --entrypoint=start\
- -p before=deb21146832657a752777d59254cfda6306ce400\
- -p after=f346c63679160510081dec184cbcefe202513e40\
- -p branch=release/SOAL-123-test-volatile\
- -p repository=git@github.com:softonic/test-deployment-helm.git\
- -p repository-name=test-deployment-helm\
+ -p before=\
+ -p after=\
+ -p branch=\
+ -p repository=\
+ -p repository-name=\
  -p manifest-namespace=argo\
  -p secret-key-name=github-key\
- -p pr-id=6.46809615e+08\
+ -p pr-id=\
  -p git-provider=github\
- -p workflow-name=test-deployment-helm-pullrequest-feat--test-volatile-cdvff\
- -p branch-prefix=release\
- -p task-id=SOAL-123
+ -p workflow-name=\
+ -p branch-prefix=\
+ -p task-id=
 ``` 
 
 
