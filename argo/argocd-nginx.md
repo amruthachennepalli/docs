@@ -1,4 +1,4 @@
-# ArgoCD
+# Deploy Nginx on K8S with ArgoCD
 
 ## pre-req :
 
